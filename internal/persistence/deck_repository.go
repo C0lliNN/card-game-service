@@ -10,6 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"log"
 )
 
 const (
@@ -27,12 +28,15 @@ func NewDeckRepository(db *mongo.Database) DeckRepository {
 
 // Save inserts a new deck if not present or update an existing deck
 func (r DeckRepository) Save(ctx context.Context, deck game.Deck) error {
+	log.Println("Saving deck with id: ", deck.ID)
 	_, err := r.db.Collection(deckCollection).ReplaceOne(ctx, bson.M{"_id": deck.ID}, deck, options.Replace().SetUpsert(true))
 	return err
 }
 
 // FindByID tries to find a deck for the given id
 func (r DeckRepository) FindByID(ctx context.Context, id string) (game.Deck, error) {
+	log.Println("Retrieving new deck with id: ", id)
+
 	var deck game.Deck
 
 	if err := r.db.Collection(deckCollection).FindOne(ctx, bson.M{"_id": id}).Decode(&deck); err != nil {

@@ -3,6 +3,7 @@ package server
 import (
 	"C0lliNN/card-game-service/internal/game"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -26,6 +27,8 @@ func (h GameHandler) Routes() []Route {
 }
 
 func (h GameHandler) createDeck(c *gin.Context) {
+	log.Println("New request for creating a deck received")
+
 	var req game.CreateDeckRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		_ = c.Error(err)
@@ -42,6 +45,8 @@ func (h GameHandler) createDeck(c *gin.Context) {
 }
 
 func (h GameHandler) openDeck(c *gin.Context) {
+	log.Println("New request for opening a deck received")
+
 	response, err := h.Game.OpenDeck(c, c.Param("id"))
 	if err != nil {
 		_ = c.Error(err)
@@ -52,6 +57,8 @@ func (h GameHandler) openDeck(c *gin.Context) {
 }
 
 func (h GameHandler) drawCards(c *gin.Context) {
+	log.Println("New request for drawing cards from a deck recieved")
+
 	var req game.DrawCardsRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		_ = c.Error(err)
