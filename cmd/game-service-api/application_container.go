@@ -20,10 +20,11 @@ func newServer() server.Server {
 	gameService := game.NewGame(deckRepo, idGenerator)
 	engine := gin.New()
 	return server.New(server.Config{
-		Router:      engine,
-		Addr:        appConfig.Server.Address,
-		Timeout:     time.Second * time.Duration(appConfig.Server.Timeout),
-		GameHandler: server.NewGameHandler(gameService),
+		Router:          engine,
+		Addr:            appConfig.Server.Address,
+		Timeout:         time.Second * time.Duration(appConfig.Server.Timeout),
+		GameHandler:     server.NewGameHandler(gameService),
+		ErrorMiddleware: server.NewErrorMiddleware(),
 	})
 }
 

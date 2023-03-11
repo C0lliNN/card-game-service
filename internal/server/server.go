@@ -11,10 +11,11 @@ import (
 
 // Config aggregates configurable parameters for the Server
 type Config struct {
-	Router      *gin.Engine
-	Addr        string
-	Timeout     time.Duration
-	GameHandler GameHandler
+	Router          *gin.Engine
+	Addr            string
+	Timeout         time.Duration
+	GameHandler     GameHandler
+	ErrorMiddleware ErrorMiddleware
 }
 
 // Server wrapper around http.Server
@@ -32,6 +33,7 @@ func (s Server) Start() error {
 	router := s.Router
 
 	router.Use(gin.Recovery())
+	router.Use(s.ErrorMiddleware.Handler())
 
 	routes := s.GameHandler.Routes()
 	for _, r := range routes {
