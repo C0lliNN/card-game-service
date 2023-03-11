@@ -46,8 +46,8 @@ func (d *Deck) Draw(quantity int) ([]Card, error) {
 		return nil, ErrInvalidDrawQuantity
 	}
 
-	cards := d.Cards[cardsRemaining-quantity : cardsRemaining]
-	d.Cards = d.Cards[:cardsRemaining-quantity]
+	cards := d.Cards[:quantity]
+	d.Cards = d.Cards[quantity:]
 
 	return cards, nil
 }

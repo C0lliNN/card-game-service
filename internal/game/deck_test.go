@@ -86,7 +86,7 @@ func TestDeck_Draw(t *testing.T) {
 		{
 			Name:                   "Quantity smaller than the available size",
 			Quantity:               1,
-			ExpectedCards:          cards[2:3],
+			ExpectedCards:          cards[0:1],
 			ExpectedCardsRemaining: 2,
 			ExpectedErr:            nil,
 		},

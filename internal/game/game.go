@@ -113,7 +113,7 @@ func (g Game) DrawCards(ctx context.Context, request DrawCardsRequest) (DrawCard
 
 func createDeckResponseFromDeck(deck Deck) DeckResponse {
 	cardResponses := make([]CardResponse, len(deck.Cards))
-	for i := len(deck.Cards) - 1; i >= 0; i-- {
+	for i := range deck.Cards {
 		cardResponses[i] = createCardResponseFromCard(deck.Cards[i])
 	}
 
