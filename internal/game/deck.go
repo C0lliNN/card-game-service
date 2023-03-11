@@ -7,7 +7,7 @@ import (
 
 // Deck represents a deck of cards
 type Deck struct {
-	ID       string
+	ID       string `bson:"id"`
 	Shuffled bool
 	Partial  bool
 	Cards    []Card
