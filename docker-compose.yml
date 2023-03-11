@@ -1,0 +1,7 @@
+services:
+  mongo-database:
+      image: mongo:5.0
+      expose:
+        - "27017"
+      ports:
+        - "27017:27017"

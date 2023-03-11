@@ -8,6 +8,10 @@ import (
 // UUIDGenerator wrapper around google/uuid that allows this type to satisfy interfaces
 type UUIDGenerator struct{}
 
+func NewUUIDGenerator() UUIDGenerator {
+	return UUIDGenerator{}
+}
+
 // NewID returns a new UUID
 func (g UUIDGenerator) NewID() string {
 	return uuid.NewString()

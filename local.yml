@@ -1,0 +1,7 @@
+database:
+    uri: "mongodb://localhost:27017/card-game"
+    name: "card-game"
+
+server:
+    address: "localhost:8000"
+    timeout: 15
