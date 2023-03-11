@@ -87,7 +87,7 @@ func (s *DeckRepositoryTestSuite) TestSave_Update() {
 func (s *DeckRepositoryTestSuite) TestFindByID_NotFound() {
 	ctx := context.TODO()
 	_, err := s.repo.FindByID(ctx, "some-id")
-	assert.Error(s.T(), err)
+	assert.Equal(s.T(), game.ErrDeckNotFound, err)
 }
 
 func (s *DeckRepositoryTestSuite) TestFindByID_Found() {
