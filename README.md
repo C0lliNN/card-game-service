@@ -18,6 +18,8 @@ An RESTFul HTTP API build using Golang for managing decks and cards for games.
 * [Testcontainers](https://golang.testcontainers.org/) as a tool for creating integration and E2E tests 
 * [Baloo](https://github.com/h2non/baloo) as s tool for creating E2E tests
 
+**NOTE**: This project follows [golang-standards project-layout](https://github.com/golang-standards/project-layout)
+
 ## Local Development
 
 ### Prerequisites
