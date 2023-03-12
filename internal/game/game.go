@@ -34,7 +34,7 @@ type CreateDeckRequest struct {
 // DrawCardsRequest aggregates the data necessary for drawing Card from a Deck
 type DrawCardsRequest struct {
 	DeckID   string
-	Quantity int `json:"quantity"`
+	Quantity int `form:"quantity"`
 }
 
 // DrawCardsResponse represents a response for a Draw operation

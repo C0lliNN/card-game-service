@@ -4,6 +4,7 @@ import (
 	"C0lliNN/card-game-service/internal/game"
 	"C0lliNN/card-game-service/internal/test"
 	"encoding/json"
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -89,10 +90,8 @@ func (s *GameHandlerTestSuite) TestDrawCards() {
 		Done()
 
 	require.NoError(s.T(), err)
-
-	drawRequest := game.DrawCardsRequest{Quantity: 3}
-	err = s.balooClient.Patch("/decks/" + deckResponse.DeckID + "/draw").
-		JSON(drawRequest).
+	err = s.balooClient.Delete(fmt.Sprintf("/decks/%s/cards", deckResponse.DeckID)).
+		AddQuery("quantity", "3").
 		Expect(s.T()).
 		Status(http.StatusOK).
 		AssertFunc(func(response *http.Response, request *http.Request) error {

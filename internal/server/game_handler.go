@@ -20,9 +20,9 @@ func (h GameHandler) Routes() []Route {
 	return []Route{
 		{Method: http.MethodPost, Path: "/decks", Handler: h.createDeck},
 		{Method: http.MethodGet, Path: "/decks/:id", Handler: h.openDeck},
-		// Since this operation is not idempotent (cards are removed from the deck on each request),
-		// the PATCH verb seems like a good fit since this endpoint will apply a partial update in the deck resource
-		{Method: http.MethodPatch, Path: "/decks/:id/draw", Handler: h.drawCards},
+		// Although this operation is not idempotent, the DELETE verb seems applicable in this scenario since
+		// Cards are going to be deleted from the deck resource.
+		{Method: http.MethodDelete, Path: "/decks/:id/cards", Handler: h.drawCards},
 	}
 }
 
@@ -57,10 +57,10 @@ func (h GameHandler) openDeck(c *gin.Context) {
 }
 
 func (h GameHandler) drawCards(c *gin.Context) {
-	log.Println("New request for drawing cards from a deck recieved")
+	log.Println("New request for drawing cards from a deck received")
 
 	var req game.DrawCardsRequest
-	if err := c.ShouldBindJSON(&req); err != nil {
+	if err := c.ShouldBindQuery(&req); err != nil {
 		_ = c.Error(err)
 		return
 	}
