@@ -1,7 +1,9 @@
-package persistence
+package persistence_test
 
 import (
 	"C0lliNN/card-game-service/internal/game"
+	"C0lliNN/card-game-service/internal/persistence"
+	"C0lliNN/card-game-service/internal/test"
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -10,14 +12,14 @@ import (
 )
 
 type DeckRepositoryTestSuite struct {
-	RepositoryTestSuite
-	repo DeckRepository
+	test.RepositoryTestSuite
+	repo persistence.DeckRepository
 }
 
 func (s *DeckRepositoryTestSuite) SetupSuite() {
 	s.RepositoryTestSuite.SetupSuite()
 
-	s.repo = NewDeckRepository(s.db)
+	s.repo = persistence.NewDeckRepository(s.DB)
 }
 
 func TestDeckRepository(t *testing.T) {

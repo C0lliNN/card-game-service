@@ -1,4 +1,4 @@
-package persistence
+package test
 
 import (
 	"context"
@@ -45,7 +45,8 @@ func newContainer(ctx context.Context) (*mongodbContainer, error) {
 type RepositoryTestSuite struct {
 	suite.Suite
 	container *mongodbContainer
-	db        *mongo.Database
+	Endpoint  string
+	DB        *mongo.Database
 }
 
 func (s *RepositoryTestSuite) SetupSuite() {
@@ -58,6 +59,8 @@ func (s *RepositoryTestSuite) SetupSuite() {
 	endpoint, err := s.container.Endpoint(ctx, "mongodb")
 	require.NoError(s.T(), err)
 
+	s.Endpoint = endpoint
+
 	mongoClient, err := mongo.NewClient(options.Client().ApplyURI(endpoint))
 	require.NoError(s.T(), err)
 
@@ -69,13 +72,13 @@ func (s *RepositoryTestSuite) SetupSuite() {
 		return err == nil
 	}, time.Second*10, time.Millisecond*100)
 
-	s.db = mongoClient.Database(dbName)
+	s.DB = mongoClient.Database(dbName)
 }
 
 func (s *RepositoryTestSuite) TearDownTest() {
 	ctx := context.TODO()
 
-	_ = s.db.Drop(ctx)
+	_ = s.DB.Drop(ctx)
 }
 
 func (s *RepositoryTestSuite) TearDownSuite() {

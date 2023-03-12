@@ -24,12 +24,12 @@ type Server struct {
 	httpServer *http.Server
 }
 
-func New(c Config) Server {
-	return Server{Config: c}
+func New(c Config) *Server {
+	return &Server{Config: c}
 }
 
 // Start sets up and starts the HTTP server
-func (s Server) Start() error {
+func (s *Server) Start() error {
 	router := s.Router
 
 	router.Use(gin.Recovery())
@@ -51,6 +51,6 @@ func (s Server) Start() error {
 }
 
 // Shutdown gracefully shuts down the HTTP server
-func (s Server) Shutdown(ctx context.Context) error {
+func (s *Server) Shutdown(ctx context.Context) error {
 	return s.httpServer.Shutdown(ctx)
 }

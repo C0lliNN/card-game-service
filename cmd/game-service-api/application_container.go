@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func newServer() server.Server {
+func newServer() *server.Server {
 	appConfig := readConfig()
 	db := config.NewMongoDatabase(appConfig.Database.URI, appConfig.Database.Name)
 	deckRepo := persistence.NewDeckRepository(db)
